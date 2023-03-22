@@ -11,10 +11,11 @@
 
 .title {
     color:#2fa3a3;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .stars-outer {
     display: flex;
-    gap: 10px;
+    height: 67px;
+    gap: 5px;
 }

@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from './Star.module.css'
 
-const Star:React.FC<{onStarClick: (e:React.MouseEvent)=> void, starsIsShown:Boolean, id:number}> = (props) => {
+const Star: React.FC<{ onStarClick: (e: React.MouseEvent) => void, activeStars: Boolean, id: number }> = (props) => {
 
     let classes: any = styles;
 
     return (
         <div
-             id={props.id.toString()} className={`${classes.star} ${props.starsIsShown ? classes['star-selected'] : classes['star-not-selected']}`}
-             onClick={(e) => props.onStarClick(e)}
+            id={props.id.toString()}
+            className={`${classes.star} ${props.activeStars ? classes['star-selected'] : classes['star-not-selected']}`}
+            onClick={(e) => props.onStarClick(e)}
         >
             <span className={classes['top-left-top-square-line']}/>
             <span className={classes['top-left-middle-square-line']}/>
