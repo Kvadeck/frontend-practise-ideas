@@ -16,7 +16,7 @@
     opacity: 1;
 }
 
-.star:hover {
+.star:hover:not(:has(*:hover)) {
     transform: scale(1);
 }
 
@@ -30,6 +30,7 @@
 .bottom-right-bottom-square-line,
 .bottom-left-square-line,
 .bottom-right-square-line {
+    display: block;
     position: absolute;
     background: white;
     cursor: default;
