@@ -1,10 +1,10 @@
-import React, {ReactElement, useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState} from 'react';
 import styles from './Stars.module.css'
 import Star from "./Star";
-import {checkData} from "../../helpers";
+import {checkData, isEqualArr} from "../../helpers";
 import {starsUrl} from "../../api";
 import Preloader from "../Preloader/Preloader";
-
+import { CSSTransition } from 'react-transition-group';
 
 const Stars: React.FC = () => {
 
@@ -15,6 +15,7 @@ const Stars: React.FC = () => {
     const [error, setError] = useState(null);
     const [stars, setStars] = useState([]);
     const [isUpdated, setIsUpdated] = useState(false);
+    const [isChanged, setIsChanged] = useState(true);
 
     const fetchStarsHandler = useCallback(async () => {
         setIsLoading(true);
@@ -44,10 +45,13 @@ const Stars: React.FC = () => {
         }
 
         // Shows preloader a little bit longer
-        setIsLoading(false);
+        setTimeout(()=>{
+            setIsLoading(false);
+        }, 500)
+
     }, []);
 
-    const addStarsHandler = (async (stars: any) => {
+    const addStarsToFirebaseHandler = (async (stars: any) => {
         await fetch(starsUrl, {
             method: 'PUT',
             body: JSON.stringify(stars),
@@ -55,7 +59,7 @@ const Stars: React.FC = () => {
                 'Content-Type': 'application/json'
             }
         });
-        setIsUpdated(true)
+        setIsUpdated(true);
     })
 
     const starClickHandler = (e: React.MouseEvent) => {
@@ -73,18 +77,24 @@ const Stars: React.FC = () => {
                 initialStars[i] = true;
             }
 
-            initialStars.forEach((el:boolean, i:number)=>{
+            initialStars.forEach((el:boolean, i:number) => {
                 sendData[i] = el;
             })
 
-            addStarsHandler(sendData).then(r =>{});
+            // Check previous array with current
+            if (isEqualArr(initialStars, stars)) {
+                setIsChanged(false)
+            } else {
+                setIsChanged(true)
+                addStarsToFirebaseHandler(sendData).then(r => {});
+            }
         }
     }
 
     useEffect(() => {
         fetchStarsHandler().then(r => {
         });
-        setIsUpdated(false)
+        setIsUpdated(false);
     }, [fetchStarsHandler, isUpdated]);
 
     let classes: any = styles;
@@ -110,12 +120,21 @@ const Stars: React.FC = () => {
     return (
         <div className={classes['stars-wrapper']}>
             <h1 className={classes.title}>Star rating component</h1>
-            <div className={classes['stars-outer']}>
-                {content}
+            <CSSTransition
+                in={!isUpdated}
+                timeout={300}
+                classNames="stars-outer"
+                unmountOnExit
+            >
+                <div className={classes['stars-outer']}>
+                    {content}
+                </div>
+            </CSSTransition>
+            <div className={classes['not-changed-outer']}>
+                {!isChanged && <div className={classes['not-changed']}>Please select the new rating!</div>}
             </div>
         </div>
     );
-
 };
 
 export default Stars;

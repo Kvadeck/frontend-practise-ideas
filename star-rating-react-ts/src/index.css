@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.stars-outer-enter {
+  opacity: 0;
+}
+.stars-outer-enter-active {
+  opacity: 1;
+  transition: opacity .5s linear;
+}

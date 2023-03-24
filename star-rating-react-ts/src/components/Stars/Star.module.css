@@ -5,7 +5,7 @@
     height: 67px;
     background: #febf00;
     transform: scale(.8);
-    transition: transform .1s ease-in, opacity .1s ease-out;
+    transition: transform .1s ease-in;
 }
 
 .star-not-selected {
@@ -17,7 +17,7 @@
 }
 
 .star:hover:not(:has(*:hover)) {
-    transform: scale(1);
+    transform: scale(.9);
 }
 
 .top-left-top-square-line,
