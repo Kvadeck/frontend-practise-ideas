@@ -3,26 +3,24 @@ import styles from './Star.module.css'
 
 const Star: React.FC<{ onStarClick: (e: React.MouseEvent) => void, activeStars: Boolean, id: number }> = (props) => {
 
-    let classes: any = styles;
-
     return (
         <div
             id={props.id.toString()}
-            className={`${classes.star} ${props.activeStars ? classes['star-selected'] : classes['star-not-selected']}`}
+            className={`${styles['star']} ${props.activeStars ? styles['star-selected'] : styles['star-not-selected']}`}
             onClick={(e) => props.onStarClick(e)}
         >
-            <span className={classes['top-left-top-square-line']}/>
-            <span className={classes['top-left-middle-square-line']}/>
-            <span className={classes['top-right-top-square-line']}/>
-            <span className={classes['top-right-middle-square-line']}/>
+            <span className={styles['top-left-top-square-line']}/>
+            <span className={styles['top-left-middle-square-line']}/>
+            <span className={styles['top-right-top-square-line']}/>
+            <span className={styles['top-right-middle-square-line']}/>
 
-            <span className={classes['bottom-left-top-square-line']}/>
-            <span className={classes['bottom-left-bottom-square-line']}/>
-            <span className={classes['bottom-right-top-square-line']}/>
-            <span className={classes['bottom-right-bottom-square-line']}/>
+            <span className={styles['bottom-left-top-square-line']}/>
+            <span className={styles['bottom-left-bottom-square-line']}/>
+            <span className={styles['bottom-right-top-square-line']}/>
+            <span className={styles['bottom-right-bottom-square-line']}/>
 
-            <span className={classes['bottom-left-square-line']}/>
-            <span className={classes['bottom-right-square-line']}/>
+            <span className={styles['bottom-left-square-line']}/>
+            <span className={styles['bottom-right-square-line']}/>
         </div>
     );
 };

@@ -2,7 +2,7 @@ export function checkData(data: boolean) {
     if (!data) throw Error('Something went wrong!')
 }
 
-export function isEqualArr(arr1:[], arr2:any) {
+export function isEqualArr(arr1:boolean[], arr2:any) {
 
     if (arr1.length !== arr2.length) {
         throw new Error('Length is different!')

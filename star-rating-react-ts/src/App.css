@@ -1,3 +1,20 @@
 .App {
   /*text-align: center;*/
 }
+.wrapper {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.title {
+    color:#2fa3a3;
+    white-space: nowrap;
+    height: 37px;
+    user-select: none;
+}

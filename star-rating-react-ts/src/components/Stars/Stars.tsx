@@ -1,66 +1,36 @@
-import React, { useCallback, useEffect, useState} from 'react';
-import styles from './Stars.module.css'
+import React, { useEffect, useState} from 'react';
+import classes from './Stars.module.css'
 import Star from "./Star";
-import {checkData, isEqualArr} from "../../helpers";
-import {starsUrl} from "../../api";
+import {isEqualArr} from "../../helpers";
 import Preloader from "../Preloader/Preloader";
-import { CSSTransition } from 'react-transition-group';
+import {AddStars, FetchStars} from "../../api/stars";
 
-const Stars: React.FC = () => {
+interface fetchStarsTypes {
+    isLoading: boolean;
+    error: null;
+    isEmpty: boolean;
+    stars: boolean[];
+    fetchStars: () => Promise<void>;
+}
 
-    const STARCOUNTER:any = 5;
+interface addStarsTypes {
+    isUpdated: boolean;
+    addStars: (data) => Promise<void>;
+    setIsUpdated: (value) => void;
+}
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [isEmpty, setIsEmpty] = useState(false);
-    const [error, setError] = useState(null);
-    const [stars, setStars] = useState([]);
-    const [isUpdated, setIsUpdated] = useState(false);
+interface sendDataTypes {
+    [key: number]: boolean
+}
+
+const Stars: React.FC<{ isWhite: Boolean }> = () => {
+
+    const STARCOUNTER:number = 5;
+
+    const {isLoading, error, isEmpty, stars, fetchStars }:fetchStarsTypes = FetchStars();
+    const {isUpdated, addStars, setIsUpdated}:addStarsTypes = AddStars()
+
     const [isChanged, setIsChanged] = useState(true);
-
-    const fetchStarsHandler = useCallback(async () => {
-        setIsLoading(true);
-        setError(null);
-        try {
-            const response = await fetch(starsUrl);
-
-            checkData(response.ok);
-
-            const data = await response.json();
-            const loadedStars: any = [];
-
-            for (const key in data) {
-                if (data.hasOwnProperty(key)) {
-                    loadedStars.push(data[key]);
-                }
-            }
-
-            if(!loadedStars.length) {
-                setIsEmpty(true);
-            }
-
-            setStars(loadedStars);
-
-        } catch (error: any) {
-            setError(error.message);
-        }
-
-        // Shows preloader a little bit longer
-        setTimeout(()=>{
-            setIsLoading(false);
-        }, 500)
-
-    }, []);
-
-    const addStarsToFirebaseHandler = (async (stars: any) => {
-        await fetch(starsUrl, {
-            method: 'PUT',
-            body: JSON.stringify(stars),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        setIsUpdated(true);
-    })
 
     const starClickHandler = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -70,8 +40,8 @@ const Stars: React.FC = () => {
         if (tag !== "span") {
 
             const id:number = Number(target.id);
-            const initialStars:any = Array(STARCOUNTER).fill(false);
-            const sendData:any = {};
+            const initialStars:boolean[] = Array(STARCOUNTER).fill(false);
+            const sendData:sendDataTypes = {};
 
             for (let i = 0; i <= id; i++) {
                 initialStars[i] = true;
@@ -86,20 +56,17 @@ const Stars: React.FC = () => {
                 setIsChanged(false)
             } else {
                 setIsChanged(true)
-                addStarsToFirebaseHandler(sendData).then(r => {});
+                addStars(sendData).then(() => null);
             }
         }
     }
 
     useEffect(() => {
-        fetchStarsHandler().then(r => {
-        });
+        fetchStars().then(() => null);
         setIsUpdated(false);
-    }, [fetchStarsHandler, isUpdated]);
+    }, [fetchStars, isUpdated, setIsUpdated]);
 
-    let classes: any = styles;
-
-    let content:any
+    let content;
 
     if (isEmpty) {
         content = <p className={classes['no-found']}>No stars found!</p>;
@@ -113,23 +80,13 @@ const Stars: React.FC = () => {
         content = <p className={classes['error']}>Error:&nbsp;{error}</p>;
     }
 
-    if (isLoading) {
-        content = <Preloader/>
-    }
-
     return (
         <div className={classes['stars-wrapper']}>
-            <h1 className={classes.title}>Star rating component</h1>
-            <CSSTransition
-                in={!isUpdated}
-                timeout={300}
-                classNames="stars-outer"
-                unmountOnExit
-            >
+            {(isLoading) ? <Preloader/> :
                 <div className={classes['stars-outer']}>
                     {content}
                 </div>
-            </CSSTransition>
+            }
             <div className={classes['not-changed-outer']}>
                 {!isChanged && <div className={classes['not-changed']}>Please select the new rating!</div>}
             </div>
