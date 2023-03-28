@@ -30,14 +30,6 @@
     transition: all 150ms ease;
 }
 
-.theme-selector:required:invalid {
-    color: #5a667f;
-}
-
-.theme-selector option[value=""][disabled] {
-    display: none;
-}
-
 .arrow-down {
     position: absolute;
     right: 12px;

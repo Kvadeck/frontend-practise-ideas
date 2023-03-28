@@ -3,9 +3,21 @@
     cursor: pointer;
     width: 70px;
     height: 67px;
-    background: #febf00;
     transform: scale(.8);
     transition: transform .1s ease-in;
+}
+
+.theme-gold,
+.theme-red {
+    position: relative;
+}
+
+.theme-gold .star {
+    background: #febf00;
+}
+
+.theme-red .star {
+    background: red;
 }
 
 .star-not-selected {

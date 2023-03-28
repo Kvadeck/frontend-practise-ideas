@@ -1,11 +1,12 @@
 import React, { useEffect, useState} from 'react';
 import classes from './Stars.module.css'
+import starClasses from './Star.module.css'
 import Star from "./Star";
 import {isEqualArr} from "../../helpers";
 import Preloader from "../Preloader/Preloader";
 import {AddStars, FetchStars} from "../../api/stars";
 
-interface fetchStarsTypes {
+type fetchStarsTypes = {
     isLoading: boolean;
     error: null;
     isEmpty: boolean;
@@ -13,17 +14,21 @@ interface fetchStarsTypes {
     fetchStars: () => Promise<void>;
 }
 
-interface addStarsTypes {
+type addStarsTypes = {
     isUpdated: boolean;
     addStars: (data) => Promise<void>;
     setIsUpdated: (value) => void;
 }
 
-interface sendDataTypes {
-    [key: number]: boolean
+type sendDataTypes = {
+    [key: number]: boolean;
 }
 
-const Stars: React.FC<{ isWhite: Boolean }> = () => {
+type Props = {
+    themeToggle: number|string;
+}
+
+const Stars: React.FC<Props> = (props) => {
 
     const STARCOUNTER:number = 5;
 
@@ -73,7 +78,8 @@ const Stars: React.FC<{ isWhite: Boolean }> = () => {
     }
 
     if (stars.length > 0) {
-        content = stars.map((el: boolean, i: number): JSX.Element => <Star key={i} id={i} onStarClick={starClickHandler} activeStars={el}/>)
+        content = stars.map((el: boolean, i: number): JSX.Element =>
+            <Star key={i} id={i} onStarClick={starClickHandler} activeStars={el}/>)
     }
 
     if (error) {
@@ -81,16 +87,19 @@ const Stars: React.FC<{ isWhite: Boolean }> = () => {
     }
 
     return (
-        <div className={classes['stars-wrapper']}>
-            {(isLoading) ? <Preloader/> :
-                <div className={classes['stars-outer']}>
-                    {content}
+        <div className={`${(props.themeToggle) ? starClasses['theme-red'] : starClasses['theme-gold'] }`}>
+            <div className={classes['stars-wrapper']}>
+                {(isLoading) ? <Preloader themeToggle={props.themeToggle} /> :
+                    <div className={classes['stars-outer']}>
+                        {content}
+                    </div>
+                }
+                <div className={classes['not-changed-outer']}>
+                    {!isChanged && <div className={classes['not-changed']}>Please select the new rating!</div>}
                 </div>
-            }
-            <div className={classes['not-changed-outer']}>
-                {!isChanged && <div className={classes['not-changed']}>Please select the new rating!</div>}
             </div>
         </div>
+
     );
 };
 

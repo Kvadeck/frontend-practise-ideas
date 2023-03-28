@@ -14,6 +14,21 @@
     animation: spin 2s linear infinite;
 }
 
+.theme-gold,
+.theme-red {
+    position: relative;
+}
+
+.theme-gold .preloader {
+    background: #febf00;
+}
+
+.theme-red .preloader {
+    background: red;
+}
+
 @keyframes spin {
-    100% { transform: rotate(360deg); }
+    100% {
+        transform: rotate(360deg);
+    }
 }

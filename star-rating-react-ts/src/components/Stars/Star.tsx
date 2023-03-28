@@ -1,7 +1,14 @@
 import React from 'react';
 import styles from './Star.module.css'
 
-const Star: React.FC<{ onStarClick: (e: React.MouseEvent) => void, activeStars: Boolean, id: number }> = (props) => {
+type Props = {
+    onStarClick: (e: React.MouseEvent) => void;
+    activeStars: boolean;
+    id: number;
+}
+
+
+const Star: React.FC<Props> = (props) => {
 
     return (
         <div
