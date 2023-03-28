@@ -5,7 +5,6 @@ import Selector from "./components/themeSelect/Selector";
 import {getStarThemeFromLocalStorage} from "./helpers";
 
 // TODO:
-//  Deploy to Vercel
 
 //  You can check stars from zero to five
 //  Cursor pointer shows only on star.
@@ -19,7 +18,7 @@ import {getStarThemeFromLocalStorage} from "./helpers";
 //  Refactor the stars component
 //  You can select few themes for stars and preloader
 //  When page loads keep selected theme in localstorage
-
+//  Deploy to Vercel
 
 const App: React.FC = () => {
 
