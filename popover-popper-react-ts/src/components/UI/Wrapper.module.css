@@ -1,0 +1,18 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.buttons-wrapper {
+    padding: 35px;
+    border: 1px solid #ffffff
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        flex-direction: column;
+    }
+}
