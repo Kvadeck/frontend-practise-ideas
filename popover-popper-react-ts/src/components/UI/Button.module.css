@@ -2,7 +2,7 @@
     position: relative;
     color: white;
     min-width: 135px;
-    opacity: .8;
+    opacity: 1;
     transition: opacity .1s;
 }
 
@@ -14,7 +14,10 @@
     background-color: #28a745;
 }
 
-.primary:hover,
-.secondary:hover {
-    opacity: 1;
+.popover-color {
+    background-color: #90280f;
+}
+
+.button:hover {
+    opacity: .8;
 }
