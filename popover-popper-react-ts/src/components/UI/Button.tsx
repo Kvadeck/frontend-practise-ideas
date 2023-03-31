@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import styles from './Button.module.css'
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
     color: string;
 }
 
-function Button(props:Props) {
+const Button: React.FC<Props> = memo((props) => {
     return (
         <>
             <button className={`${styles.button} ${styles[props.color]}`} onClick={props.onClickHandler}>
@@ -15,6 +15,6 @@ function Button(props:Props) {
             </button>
         </>
     );
-}
+})
 
 export default Button;

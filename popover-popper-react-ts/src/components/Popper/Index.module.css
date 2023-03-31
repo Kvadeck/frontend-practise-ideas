@@ -1,0 +1,48 @@
+.popper {
+    position: absolute;
+    width: 300px;
+    background: white;
+    bottom: 40px;
+    border-radius: 5px;
+    padding: 25px;
+}
+
+.inner {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    gap: 15px;
+}
+
+.left {
+    position: relative;
+    margin-left: -70px;
+}
+
+.right {
+    display: block;
+    text-align: left;
+}
+
+.title {
+    color: #795548;
+    font-weight: 500;
+}
+
+.text {
+    color: black;
+    margin-left: 15px;
+    display: block;
+    font-size: 15px;
+}
+
+.text-wrapper {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: end;
+    margin-top: 15px;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import styles from './Modal.module.css'
 import Button from "../UI/Button";
 
@@ -6,11 +6,13 @@ type Props = {
     title:string;
     text:string;
     image:string;
+    onConfirm: () => void;
+    animation:string;
 }
 
-function Modal(props:Props) {
+const Modal: React.FC<Props> = memo((props) => {
     return (
-        <div className={styles.modal}>
+        <div className={`${styles.modal} ${styles['modal-'+props.animation]} `}>
             <div className={styles.inner}>
                 <div className={styles.left}>
                     <img src={props.image} alt={props.title}/>
@@ -23,10 +25,10 @@ function Modal(props:Props) {
                 </div>
             </div>
             <div className={styles['button-wrapper']}>
-                <Button name={'Продолжить'} onClickHandler={()=>{}} color={'popover-color'} />
+                <Button name={'Продолжить'} onClickHandler={props.onConfirm} color={'popover-color'} />
             </div>
         </div>
     );
-}
+})
 
 export default Modal;

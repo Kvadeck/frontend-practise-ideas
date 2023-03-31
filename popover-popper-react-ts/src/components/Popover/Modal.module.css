@@ -7,15 +7,23 @@
     background-color: #fbfbfb;
     color: black;
     padding: 25px;
-
     border-radius: 5px;
     transform: translate(-50%, -50%);
+}
+
+.modal-slide {
+    top: -20%;
+    animation: slidePopover cubic-bezier(0.45, 0.05, 0.55, 0.95) .3s forwards;
+}
+
+.modal-fadeIn {
+    opacity: 0;
+    animation: fadeInPopover cubic-bezier(0.25, 0.46, 0.45, 0.94) .3s forwards;
 }
 
 .inner {
     display: flex;
     gap: 20px;
-    max-height: 300px;
 }
 
 .title {
@@ -66,11 +74,17 @@
 
 @media (max-width: 768px) {
     .modal {
-        width: 40%;
+        width: 60%;
         top: 40%;
-        transform: translate(-50%, -50%);
         max-height: 400px;
-        height: 100%;
+    }
+
+    .modal-slide {
+        top: -20%;
+    }
+
+    .text {
+        margin-left: 0;
     }
 
     .inner {
@@ -87,7 +101,18 @@
     }
 
     .text-wrapper {
-        max-height: 60px;
+        max-height: 115px;
     }
+}
 
+@keyframes slidePopover {
+    100% {
+        top: 36%;
+    }
+}
+
+@keyframes fadeInPopover {
+    100% {
+        opacity: 1;
+    }
 }
