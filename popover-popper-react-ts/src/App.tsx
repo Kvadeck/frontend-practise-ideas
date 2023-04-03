@@ -6,9 +6,9 @@ import Popper from "./components/Popper/Index";
 import PopoverPopperContext from "./store/popover-popper-context";
 
 // TODO:
-//  Deploy to Vercel
 
 // DONE:
+//  Deploy to Vercel
 //  Use context for to prevent props drilling
 //  Create popper and popper with two different animations. Slide and FadeIn
 //  Create popper with styles and adaptive. Click open popper

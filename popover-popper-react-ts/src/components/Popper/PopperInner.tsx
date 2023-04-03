@@ -16,7 +16,7 @@ const PopperInner: React.FC<Props> = memo((props) => {
         <div className={`${styles.popper} ${'popper-'+props.animation}`}>
             <div className={styles.inner}>
                 <div className={styles.left}>
-                    <img src={props.image} alt={props.title}/>
+                    <img className={'modal-image'} src={props.image} alt={props.title}/>
                 </div>
                 <div className={styles.right}>
                     <span className={styles.title}>{props.title}&nbsp;&#8212;&nbsp;</span>

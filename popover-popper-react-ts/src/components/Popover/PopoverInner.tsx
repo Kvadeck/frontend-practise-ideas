@@ -1,7 +1,6 @@
 import Modal from './Modal'
 import ReactDOM from 'react-dom';
-import PopoverPopperContext from "../../store/popover-popper-context";
-import React, {memo, useContext} from "react";
+import React, {memo} from "react";
 import Backdrop from './Backdrop'
 
 type Props = {

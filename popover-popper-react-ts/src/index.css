@@ -89,6 +89,11 @@ button:not(:disabled) {
   animation: popperFadeIn linear 100ms forwards;
 }
 
+.modal-image {
+  width: 131px;
+  height: 181px;
+}
+
 @keyframes slide {
   100% {
     top: 36%;
