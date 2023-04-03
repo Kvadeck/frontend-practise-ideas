@@ -5,12 +5,13 @@ type Props = {
     name: string;
     onClickHandler: ()=>void;
     color: string;
+    isDisabled?: boolean;
 }
 
 const Button: React.FC<Props> = memo((props) => {
     return (
         <>
-            <button className={`${styles.button} ${styles[props.color]}`} onClick={props.onClickHandler}>
+            <button disabled={props.isDisabled} className={`${styles.button} ${styles[props.color]}`} onClick={props.onClickHandler}>
                 {props.name}
             </button>
         </>
@@ -18,3 +19,5 @@ const Button: React.FC<Props> = memo((props) => {
 })
 
 export default Button;
+
+// (props.isDisabled) ? 'disabled' : ''

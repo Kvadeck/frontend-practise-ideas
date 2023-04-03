@@ -19,6 +19,16 @@
     margin-left: -70px;
 }
 
+.popper-fadeIn {
+    top: -20%;
+    animation: slidePopover cubic-bezier(0.45, 0.05, 0.55, 0.95) .3s forwards;
+}
+
+.popper-scale {
+    opacity: 0;
+    animation: fadeInPopover cubic-bezier(0.25, 0.46, 0.45, 0.94) .3s forwards;
+}
+
 .right {
     display: block;
     text-align: left;
@@ -45,4 +55,25 @@
     display: flex;
     justify-content: end;
     margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+    .popper {
+        width: auto;
+    }
+    .left {
+        margin-left: 0;
+    }
+}
+
+/* For popper on mobile make window in the center */
+@media (max-width: 425px) {
+    .popper {
+        bottom: auto;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+    }
+    .left {
+        margin-left: 0;
+    }
 }

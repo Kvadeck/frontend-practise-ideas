@@ -1,21 +1,28 @@
-import React, {memo} from 'react';
-import Backdrop from "./Backdrop";
-import Modal from './Modal'
-import ReactDOM from 'react-dom';
+import React, {memo, useContext} from 'react';
+import PopoverPopperContext from "../../store/popover-popper-context";
+import PopoverInner from "./PopoverInner";
 
-type Props = {
-    title:string;
-    text:string;
-    image:string;
-    onConfirm: () => void;
-    animation:string;
-}
+const Popover: React.FC = memo(() => {
 
-const Popover: React.FC<Props> = memo((props) => {
+    const windowCtx = useContext(PopoverPopperContext);
+
+    const {
+        isOpenPopoverSlide,
+        isOpenPopoverFadeIn,
+        dataSlide,
+        dataFadeIn,
+        popoverSlide,
+        popoverFadeIn
+    } = windowCtx
+
     return (
         <>
-            {ReactDOM.createPortal(<Backdrop onClickHandler={props.onConfirm}/>,  document.getElementById('backdrop-root') as HTMLElement)}
-            {ReactDOM.createPortal(<Modal animation={props.animation} title={props.title} text={props.text} onConfirm={props.onConfirm} image={props.image}/>,  document.getElementById('modal-root') as HTMLElement)}
+            {isOpenPopoverSlide &&
+            <PopoverInner animation={'slide'} image={dataSlide.image} onClose={popoverSlide}
+                          text={dataSlide.text} title={dataSlide.title}/>}
+            {isOpenPopoverFadeIn &&
+            <PopoverInner animation={'fadeIn'} image={dataFadeIn.image} onClose={popoverFadeIn} text={dataFadeIn.text}
+                          title={dataFadeIn.title}/>}
         </>
     );
 })

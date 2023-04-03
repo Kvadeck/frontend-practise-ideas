@@ -1,36 +1,40 @@
-import React, {memo} from 'react';
-import styles from './Index.module.css'
-import Button from "../UI/Button";
+import React, {memo, useContext} from 'react';
+import PopperInner from "./PopperInner";
+import PopoverPopperContext from "../../store/popover-popper-context";
 
 
 type Props = {
-    title:string;
-    text:string;
-    image:string;
-    onConfirm: () => void;
-    animation:string;
+    animation: string;
 }
 
 const Popper: React.FC<Props> = memo((props) => {
+
+    const windowCtx = useContext(PopoverPopperContext);
+
+    const {
+        dataSlide,
+        dataFadeIn,
+        popperScale,
+        popperFadeIn
+    } = windowCtx
+
+    let content;
+
+    if (props.animation === 'scale') {
+        content =
+            <PopperInner animation={props.animation} image={dataSlide.image} onClose={popperScale} text={dataSlide.text}
+                         title={dataSlide.title}/>
+    }
+
+    if (props.animation === 'fadeIn') {
+        content = <PopperInner animation={props.animation} image={dataFadeIn.image} onClose={popperFadeIn}
+                               text={dataFadeIn.text} title={dataFadeIn.title}/>
+    }
+
     return (
-        <div className={styles.popper}>
-                 <div className={styles.inner}>
-                     <div className={styles.left}>
-                         <img src={props.image} alt={props.title}/>
-                     </div>
-                     <div className={styles.right}>
-                         <span className={styles.title}>{props.title}&nbsp;&#8212;&nbsp;</span>
-                         <div className={styles['text-wrapper']}>
-                             <span className={styles.text} >{props.text}</span>
-                        </div>
-                     </div>
-                 </div>
-                 <div className={styles['button-wrapper']}>
-                     <Button name={'Продолжить'} onClickHandler={props.onConfirm} color={'popover-color'} />
-                 </div>
-        </div>
-
-
+        <>
+            {content}
+        </>
     );
 })
 

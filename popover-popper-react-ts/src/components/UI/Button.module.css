@@ -3,7 +3,7 @@
     color: white;
     min-width: 135px;
     opacity: 1;
-    transition: opacity .1s;
+    transition: opacity .1s, filter .1s;
 }
 
 .primary {
@@ -20,4 +20,8 @@
 
 .button:hover {
     opacity: .8;
+}
+
+.button:disabled {
+    filter: grayscale(1);
 }
