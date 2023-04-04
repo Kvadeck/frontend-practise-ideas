@@ -63,6 +63,20 @@ button:not(:disabled) {
   cursor: pointer;
 }
 
+.error {
+  color: red;
+}
+
+/* Critical css */
+
+.image-joyce {
+  background-image: url("./assets/joyce.png");
+}
+
+.image-headbreaker {
+  background-image: url("./assets/headbreaker.png");
+}
+
 
 /* Animations */
 
@@ -92,6 +106,7 @@ button:not(:disabled) {
 .modal-image {
   width: 131px;
   height: 181px;
+  object-fit: contain;
 }
 
 @keyframes slide {

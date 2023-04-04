@@ -36,6 +36,12 @@
     color: #352c2c;
 }
 
+.square {
+    background: #ffffff;
+    width: 131px;
+    height: 181px;
+}
+
 .left,
 .right {
     display: block;

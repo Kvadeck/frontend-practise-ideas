@@ -6,6 +6,7 @@ import Popper from "./components/Popper/Index";
 import PopoverPopperContext from "./store/popover-popper-context";
 
 // TODO:
+//  Image shows with delay. Because when processing dom insert image gets again.
 
 // DONE:
 //  Deploy to Vercel

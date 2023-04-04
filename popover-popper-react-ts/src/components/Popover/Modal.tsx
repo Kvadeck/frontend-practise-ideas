@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React from 'react';
 import styles from './Modal.module.css'
 import Button from "../UI/Button";
 
@@ -10,12 +10,13 @@ type Props = {
     animation:string;
 }
 
-const Modal: React.FC<Props> = memo((props) => {
+const Modal: React.FC<Props> = (props) => {
+
     return (
         <div className={`${styles.modal} ${'modal-'+props.animation} `}>
             <div className={styles.inner}>
                 <div className={styles.left}>
-                    <img className={'modal-image'} src={props.image} alt={props.title}/>
+                    <div className={`${'modal-image'} image-${props.image}`} />
                 </div>
                 <div className={styles.right}>
                     <span className={styles.title}>{props.title}&nbsp;&#8212;&nbsp;</span>
@@ -29,6 +30,6 @@ const Modal: React.FC<Props> = memo((props) => {
             </div>
         </div>
     );
-})
+}
 
 export default Modal;
