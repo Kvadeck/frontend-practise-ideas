@@ -5,35 +5,35 @@ export const preloadImage = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [error, setError] = useState(false);
 
-    const getImageFromHttp = ((image: string) => {
-        const result = () => {
-            return new Promise((resolve, reject) => {
-                const loadImg = new Image()
-                loadImg.src = image;
-
-                loadImg.onload = () => {
-                    setTimeout(() => {
-                        resolve(image)
-                    }, 500)
-                }
-
-                loadImg.onerror = (err) => {
-                    reject(err)
-                }
-            })
-        }
-
-        result().then(()=>{
+    async function loadImage(url:string, elem:any) {
+        return new Promise((resolve, reject) => {
+            elem.onload = () => {
+                    resolve(elem);
+            }
+            elem.onerror = (error: any) => {
+                reject(error);
+            }
+            elem.src = url;
+        });
+    }
+    const checkImageIsLoaded = useCallback  (async (url: string, elem:any)=>{
+        const image = elem.current
+        try {
             setIsLoaded(true);
-        }).catch(()=>{
-            setError(true);
-        })
+            await loadImage(url, image);
 
-    })
+            if (image.complete) {
+                setIsLoaded(false)
+            }
+
+        } catch (error) {
+            setError(true)
+        }
+    },[])
 
     return {
         isLoaded,
         error,
-        getImageFromHttp
+        checkImageIsLoaded
     }
 }

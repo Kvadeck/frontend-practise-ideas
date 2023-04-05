@@ -1,6 +1,6 @@
 .popper {
     position: absolute;
-    width: 300px;
+    width: 280px;
     background: white;
     bottom: 40px;
     border-radius: 5px;
@@ -32,6 +32,9 @@
 .right {
     display: block;
     text-align: left;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s;
 }
 
 .title {
@@ -55,6 +58,8 @@
     display: flex;
     justify-content: end;
     margin-top: 15px;
+    opacity: 0;
+    visibility: hidden;
 }
 
 @media (max-width: 768px) {

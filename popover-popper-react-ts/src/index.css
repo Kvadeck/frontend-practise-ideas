@@ -63,20 +63,9 @@ button:not(:disabled) {
   cursor: pointer;
 }
 
-.error {
+.text-error {
   color: red;
 }
-
-/* Critical css */
-
-.image-joyce {
-  background-image: url("./assets/joyce.png");
-}
-
-.image-headbreaker {
-  background-image: url("./assets/headbreaker.png");
-}
-
 
 /* Animations */
 
@@ -107,7 +96,11 @@ button:not(:disabled) {
   width: 131px;
   height: 181px;
   object-fit: contain;
+  visibility: hidden;
+  transform: scale(.6);
+  transition: transform .3s;
 }
+
 
 @keyframes slide {
   100% {

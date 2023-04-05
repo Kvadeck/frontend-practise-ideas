@@ -52,11 +52,16 @@
 }
 
 .right {
+    opacity: 0;
+    visibility: hidden;
     margin-top: 35px;
-
+    transition: opacity .3s;
 }
 
 .button-wrapper {
+    visibility: hidden;
+    transition: opacity .3s;
+    opacity: 0;
     position: relative;
     display: flex;
     justify-content: end;

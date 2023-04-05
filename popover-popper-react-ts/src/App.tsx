@@ -6,7 +6,6 @@ import Popper from "./components/Popper/Index";
 import PopoverPopperContext from "./store/popover-popper-context";
 
 // TODO:
-//  Image shows with delay. Because when processing dom insert image gets again.
 
 // DONE:
 //  Deploy to Vercel
@@ -17,6 +16,7 @@ import PopoverPopperContext from "./store/popover-popper-context";
 //  Styles for buttons
 //  Create popover with styles and adaptive. Click open popover
 //  Create popover and popper with two different animations. Slide and FadeIn
+//  Image shows with delay. Because when processing dom insert image gets again.
 
 const App: React.FC = () => {
 

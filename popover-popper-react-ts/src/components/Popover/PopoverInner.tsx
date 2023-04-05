@@ -1,6 +1,6 @@
 import Modal from './Modal'
 import ReactDOM from 'react-dom';
-import React, {memo} from "react";
+import React, {memo, useEffect} from "react";
 import Backdrop from './Backdrop'
 
 type Props = {
