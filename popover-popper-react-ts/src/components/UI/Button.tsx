@@ -1,17 +1,19 @@
 import React, {memo} from 'react';
 import styles from './Button.module.css'
 
-type Props = {
+interface Props {
     name: string;
-    onClickHandler: ()=>void;
+    onClickHandler: (num: number | undefined) => void;
     color: string;
     isDisabled?: boolean;
+    modalNumber?: number;
 }
 
-const Button: React.FC<Props> = memo((props) => {
+const Button = memo((props: Props): JSX.Element => {
     return (
         <>
-            <button disabled={props.isDisabled} className={`${styles.button} ${styles[props.color]}`} onClick={props.onClickHandler}>
+            <button disabled={props.isDisabled} className={`${styles.button} ${styles[props.color]}`}
+                    onClick={ () => { props.onClickHandler(props.modalNumber)}}>
                 {props.name}
             </button>
         </>
@@ -19,5 +21,3 @@ const Button: React.FC<Props> = memo((props) => {
 })
 
 export default Button;
-
-// (props.isDisabled) ? 'disabled' : ''

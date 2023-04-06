@@ -1,9 +1,9 @@
 import Modal from './Modal'
 import ReactDOM from 'react-dom';
-import React, {memo, useEffect} from "react";
+import React, {memo} from "react";
 import Backdrop from './Backdrop'
 
-type Props = {
+interface Props {
     animation:string,
     title:string,
     text: string,
@@ -11,7 +11,7 @@ type Props = {
     image: string
 }
 
-const PopoverInner: React.FC<Props> = memo((props) => {
+const PopoverInner = memo((props:Props):JSX.Element => {
     return (
         <>
             {ReactDOM.createPortal(<Backdrop

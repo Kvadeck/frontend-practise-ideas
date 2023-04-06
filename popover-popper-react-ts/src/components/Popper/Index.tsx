@@ -1,34 +1,33 @@
 import React, {memo, useContext} from 'react';
 import PopperInner from "./PopperInner";
-import PopoverPopperContext from "../../store/popover-popper-context";
+import ModalContext from "../../store/modal-context";
 
 
-type Props = {
-    animation: string;
+interface Props {
+    animation: 'scale' | 'fadeIn';
 }
 
-const Popper: React.FC<Props> = memo((props) => {
+const Popper = memo((props:Props):JSX.Element => {
 
-    const windowCtx = useContext(PopoverPopperContext);
+    const modalCtx = useContext(ModalContext);
 
     const {
-        dataSlide,
-        dataFadeIn,
-        popperScale,
-        popperFadeIn
-    } = windowCtx
+        Joyce,
+        Heartbreaker,
+        modalOnConfirm,
+    } = modalCtx;
 
     let content;
 
     if (props.animation === 'scale') {
         content =
-            <PopperInner animation={props.animation} image={dataSlide.image} onClose={popperScale} text={dataSlide.text}
-                         title={dataSlide.title}/>
+            <PopperInner animation={props.animation} image={Joyce.image} onClose={modalOnConfirm} text={Joyce.text}
+                         title={Joyce.title}/>
     }
 
     if (props.animation === 'fadeIn') {
-        content = <PopperInner animation={props.animation} image={dataFadeIn.image} onClose={popperFadeIn}
-                               text={dataFadeIn.text} title={dataFadeIn.title}/>
+        content = <PopperInner animation={props.animation} image={Heartbreaker.image} onClose={modalOnConfirm}
+                               text={Heartbreaker.text} title={Heartbreaker.title}/>
     }
 
     return (

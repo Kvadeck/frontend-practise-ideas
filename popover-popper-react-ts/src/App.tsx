@@ -3,7 +3,7 @@ import React, {useContext} from "react";
 import Wrapper from "./components/UI/Wrapper";
 import Popover from "./components/Popover/Index";
 import Popper from "./components/Popper/Index";
-import PopoverPopperContext from "./store/popover-popper-context";
+import ModalContext from "./store/modal-context";
 
 // TODO:
 
@@ -18,19 +18,17 @@ import PopoverPopperContext from "./store/popover-popper-context";
 //  Create popover and popper with two different animations. Slide and FadeIn
 //  Image shows with delay. Because when processing dom insert image gets again.
 
-const App: React.FC = () => {
+const App = ():JSX.Element => {
 
-    const windowCtx = useContext(PopoverPopperContext);
+    const modalCtx = useContext(ModalContext);
 
     const {
-        popoverSlide,
-        popoverFadeIn,
-        popperScale,
-        popperFadeIn,
         isBtnDisabled,
-        isOpenPopperScale,
-        isOpenPopperFadeIn,
-    } = windowCtx
+        modalOpen,
+        whichModalIsOpen
+    } = modalCtx
+
+    const [,isScale,,isFadeIn] = whichModalIsOpen;
 
     return (
         <div className="App">
@@ -38,20 +36,20 @@ const App: React.FC = () => {
             <Popover/>
 
             <Wrapper wrapperName={'buttons-wrapper'}>
-                <Button isDisabled={isBtnDisabled} onClickHandler={popoverSlide} color={'primary'}
+                <Button isDisabled={isBtnDisabled} modalNumber={0} onClickHandler={modalOpen} color={'primary'}
                         name={'Popover Slide'}/>
 
                 <Wrapper wrapperName={'popper-wrapper'}>
-                  {isOpenPopperScale && <Popper animation={'scale'} />}
-                  <Button isDisabled={isBtnDisabled} color={'secondary'} name={'Popper Scale'} onClickHandler={popperScale}/>
+                  {isScale && <Popper animation={'scale'} />}
+                  <Button modalNumber={1} isDisabled={isBtnDisabled} color={'secondary'} name={'Popper Scale'} onClickHandler={modalOpen}/>
                 </Wrapper>
 
-                <Button isDisabled={isBtnDisabled} onClickHandler={popoverFadeIn} color={'primary'}
+                <Button isDisabled={isBtnDisabled} modalNumber={2} onClickHandler={modalOpen} color={'primary'}
                         name={'Popover FadeIn'}/>
 
                 <Wrapper wrapperName={'popper-wrapper'}>
-                    {isOpenPopperFadeIn && <Popper animation={'fadeIn'} />}
-                    <Button isDisabled={isBtnDisabled} color={'secondary'} name={'Popper FadeIn'} onClickHandler={popperFadeIn}/>
+                    {isFadeIn && <Popper animation={'fadeIn'} />}
+                    <Button modalNumber={3} isDisabled={isBtnDisabled} color={'secondary'} name={'Popper FadeIn'} onClickHandler={modalOpen}/>
                 </Wrapper>
 
             </Wrapper>

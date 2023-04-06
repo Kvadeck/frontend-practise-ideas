@@ -1,28 +1,30 @@
 import React, {memo, useContext} from 'react';
-import PopoverPopperContext from "../../store/popover-popper-context";
+import ModalContext from "../../store/modal-context";
 import PopoverInner from "./PopoverInner";
 
-const Popover: React.FC = memo(() => {
+const Popover = memo(():JSX.Element => {
 
-    const windowCtx = useContext(PopoverPopperContext);
+    const modalCtx = useContext(ModalContext);
 
     const {
-        isOpenPopoverSlide,
-        isOpenPopoverFadeIn,
-        dataSlide,
-        dataFadeIn,
-        popoverSlide,
-        popoverFadeIn
-    } = windowCtx
+        Joyce,
+        Heartbreaker,
+        modalOnConfirm,
+        whichModalIsOpen
+    } = modalCtx
+
+    const [isSlide,,isFadeIn] = whichModalIsOpen;
 
     return (
         <>
-            {isOpenPopoverSlide &&
-            <PopoverInner animation={'slide'} image={dataSlide.image} onClose={popoverSlide}
-                          text={dataSlide.text} title={dataSlide.title}/>}
-            {isOpenPopoverFadeIn &&
-            <PopoverInner animation={'fadeIn'} image={dataFadeIn.image} onClose={popoverFadeIn} text={dataFadeIn.text}
-                          title={dataFadeIn.title}/>}
+            {isSlide &&
+            <PopoverInner animation={'slide'} image={Joyce.image} onClose={modalOnConfirm}
+                          text={Joyce.text} title={Joyce.title}/>}
+
+            {isFadeIn &&
+            <PopoverInner animation={'fadeIn'} image={Heartbreaker.image} onClose={modalOnConfirm} text={Heartbreaker.text}
+                          title={Heartbreaker.title}/>}
+
         </>
     );
 })

@@ -1,11 +1,11 @@
 import React, {memo} from 'react';
 import styles from './Backdrop.module.css'
 
-type Props = {
-    onClickHandler: ()=>void;
+interface Props {
+    onClickHandler: () => void;
 }
 
-const Backdrop: React.FC<Props> = memo((props) => {
+const Backdrop= memo((props:Props): JSX.Element => {
     return (
         <div className={styles.backdrop} onClick={props.onClickHandler}/>
     );

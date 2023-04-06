@@ -7,7 +7,7 @@
     z-index: 10;
     opacity: 0;
     background: rgba(0, 0, 0, 0.6);
-    animation: opacityBackdrop .3s linear forwards;
+    animation: opacityBackdrop .2s linear forwards;
 }
 
 @keyframes opacityBackdrop {
