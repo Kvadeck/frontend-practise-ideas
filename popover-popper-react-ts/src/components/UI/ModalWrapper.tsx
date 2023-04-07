@@ -1,5 +1,7 @@
-import React, {useEffect, useRef} from "react";
+import React, {useContext, useEffect, useRef} from "react";
 import {preloadImage} from "../../api/image";
+import Button from "./Button";
+import ModalContext from "../../store/modal-context";
 
 interface Props {
     styles:any;
@@ -9,6 +11,12 @@ interface Props {
 }
 
 const ModalWrapper = (props:Props):JSX.Element => {
+
+    const modalCtx = useContext(ModalContext);
+
+    const {
+        modalOnConfirm
+    } = modalCtx
 
     const {isLoaded, error, checkImageIsLoaded} = preloadImage();
     const image = useRef(null);
@@ -20,20 +28,26 @@ const ModalWrapper = (props:Props):JSX.Element => {
     }, [])
 
     return (
-        <div className={styles.inner}>
-            <div className={styles.left}>
-                {error
-                    ? <p className={'text-error'}>Failed to fetch image!</p>
-                    : <img style={ !isLoaded ? {visibility:'visible', transform: "scale(1)"} : {}} ref={image} className={'modal-image'} src={props.image} alt={props.text} />
-                }
-            </div>
-            <div style={ !isLoaded ? { visibility:'visible', opacity: "1"} : {}}  className={styles.right}>
-                <span className={styles.title}>{props.title}&nbsp;&#8212;&nbsp;</span>
-                <div className={styles['text-wrapper']}>
-                    <span className={styles.text} >{props.text}</span>
+        <>
+            <div className={styles.inner}>
+                <div className={styles.left}>
+                    {error
+                        ? <p className={'text-error'}>Failed to fetch image!</p>
+                        : <img style={ !isLoaded ? {visibility:'visible', transform: "scale(1)"} : {}} ref={image} className={'modal-image'} src={props.image} alt={props.text} />
+                    }
+                </div>
+                <div style={ !isLoaded ? { visibility:'visible', opacity: "1"} : {}}  className={styles.right}>
+                    <span className={styles.title}>{props.title}&nbsp;&#8212;&nbsp;</span>
+                    <div className={styles['text-wrapper']}>
+                        <span className={styles.text} >{props.text}</span>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div style={ !isLoaded ? { visibility:'visible', opacity: "1"} : {}} className={styles['button-wrapper']}>
+                <Button name={'Продолжить'} onClickHandler={modalOnConfirm} color={'popover-color'} />
+            </div>
+        </>
+
     );
 }
 

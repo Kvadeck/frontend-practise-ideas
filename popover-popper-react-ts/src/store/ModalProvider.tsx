@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {windowsMockups} from "./windowsMockups"
 import ModalContext from "./modal-context";
+import ContextObj from "../models/Context";
 
 interface Props {
     children: React.ReactNode;
@@ -11,30 +12,29 @@ const PopoverPopperProvider = (props: Props) => {
     const {Joyce, Headbreaker} = windowsMockups;
 
     const [isBtnDisabled, setIsBtnDisabled] = useState(false);
-    const [whichModalIsOpen, setWhichModalIsOpen] = useState([]);
+    const [whichModalIsOpen, setWhichModalIsOpen] = useState<boolean[]>([]);
 
-    const modalOpenHandler = (id: number) => {
-        // TODO: Refactor modalOpen:any
-        const modalOpen:any = [];
-        modalOpen[id] = true;
+    const modalOpenHandler = (id?: number) => {
+        const modalOpen: boolean[] = [];
+
+        if (id !== undefined) {
+            modalOpen[id] = true;
+        }
         setWhichModalIsOpen(modalOpen);
     }
 
     const modalOnConfirm = () => {
         setWhichModalIsOpen([])
+        setIsBtnDisabled(false)
     }
 
-    // useEffect(() => {
-    //
-    //   if(isOpenPopoverSlide || isOpenPopoverFadeIn || isOpenPopperScale || isOpenPopperFadeIn) {
-    //     setIsBtnDisabled(true)
-    //   } else {
-    //     setIsBtnDisabled(false)
-    //   }
-    //
-    // }, [isOpenPopoverSlide, isOpenPopoverFadeIn, isOpenPopperScale, isOpenPopperFadeIn])
+    useEffect(() => {
+        if (whichModalIsOpen.includes(true)) {
+            setIsBtnDisabled(true)
+        }
+    }, [whichModalIsOpen, isBtnDisabled])
 
-    const modalContext = {
+    const modalContext: ContextObj = {
         whichModalIsOpen: whichModalIsOpen,
         isBtnDisabled: isBtnDisabled,
         modalOpen: modalOpenHandler,

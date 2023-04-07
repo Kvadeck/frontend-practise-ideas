@@ -1,24 +1,10 @@
 import React from 'react';
+import ContextObj from "../models/Context";
 
-interface Data {
-    title: string;
-    text: string;
-    image: string;
-}
-
-interface ContextProps {
-    whichModalIsOpen: boolean[],
-    isBtnDisabled: boolean,
-    modalOpen: (id: number | undefined) => void,
-    modalOnConfirm: () => void,
-    Joyce: Data;
-    Heartbreaker: Data;
-}
-
-const ModalContext = React.createContext<ContextProps>({
+const ModalContext = React.createContext<ContextObj>({
     whichModalIsOpen: [],
     isBtnDisabled: false,
-    modalOpen: (id) => {},
+    modalOpen: (id:number | undefined) => {},
     modalOnConfirm: () => {},
     Joyce: {
         title: '',

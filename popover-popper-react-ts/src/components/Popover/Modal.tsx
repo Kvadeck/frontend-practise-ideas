@@ -1,6 +1,5 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import styles from './Modal.module.css'
-import Button from "../UI/Button";
 import {preloadImage} from "../../api/image";
 import ModalWrapper from "../UI/ModalWrapper";
 
@@ -21,9 +20,6 @@ const Modal = (props:Props):JSX.Element => {
 
             <ModalWrapper styles={styles} image={props.image} title={props.title} text={props.text} />
 
-            <div style={ !isLoaded ? { visibility:'visible', opacity: "1"} : {}} className={styles['button-wrapper']}>
-                <Button name={'Продолжить'} onClickHandler={props.onClose} color={'popover-color'} />
-            </div>
         </div>
     );
 }
