@@ -1,17 +1,34 @@
 <script>
+
+import utils from "@/utils";
+
 export default {
-  name: "ThemeSelector"
+  name: "ThemeSelector",
+  components: {},
+  emits: ['change-star-color'],
+  data() {
+    return {}
+  },
+  methods: {
+    changeStarColorEmit(event) {
+      this.$emit('change-star-color', event)
+    },
+  },
+  computed: {
+    selected() {
+      return utils.getLocalStorage('star-color', 'star-gold')
+    }
+  }
 }
 </script>
 
 <template>
   <div class="theme-wrapper">
-    <p class="theme-title">Stars color:</p>
     <label class="theme-label">
-      <select id="theme-selector" class="theme-selector" name="theme-selector">
-        <option value="default" disabled>Select option</option>
-        <option value="gold">Gold</option>
-        <option value="red">Red</option>
+      <select v-model="selected" class="theme-selector" @change="changeStarColorEmit">
+        <option value="star-gold">Gold</option>
+        <option value="star-red">Red</option>
+        <option value="star-green">Green</option>
       </select>
       <svg class="arrow-down">
         <use xlink:href="#select-arrow-down"/>
@@ -27,17 +44,13 @@ export default {
 </template>
 
 <style scoped>
+
 .theme-wrapper {
   display: flex;
   justify-content: center;
   gap: 10px;
   align-items: center;
   margin-bottom: 10px;
-}
-
-.theme-title {
-  font-size: 16px;
-  user-select: none;
 }
 
 .theme-label {
