@@ -4,8 +4,21 @@ export default {
 }
 </script>
 
+<script setup>
+
+import {defineProps} from "vue";
+
+const props = defineProps({
+  color: {
+    type: String,
+    required: true
+  }
+})
+
+</script>
+
 <template>
-  <div class="preloader-wrapper theme-red theme-gold">
+  <div class="preloader-wrapper" :class="props.color">
     <div class="preloader"></div>
   </div>
 </template>
@@ -32,12 +45,16 @@ export default {
   position: relative;
 }
 
-.theme-gold .preloader {
+.star-gold .preloader {
   background: #febf00;
 }
 
-.theme-red .preloader {
+.star-red .preloader {
   background: red;
+}
+
+.star-green .preloader {
+  background: green;
 }
 
 @keyframes spin {

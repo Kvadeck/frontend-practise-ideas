@@ -1,35 +1,31 @@
-<template>
-  <div class="app">
-    <div class="wrapper">
-      <h1 class='title'>Star rating with API</h1>
-      <theme-selector @change-star-color="changeStarColorHandler"/>
-      <stars-list :color="starColor"></stars-list>
-    </div>
-  </div>
-</template>
-
-<script>
+<script setup>
 
 import ThemeSelector from "@/components/StarColorSelector.vue";
 import StarsList from "@/components/stars/StarsList.vue";
 import utils from "@/utils";
 
-export default {
-  name: 'App',
-  components: {StarsList, ThemeSelector},
-  data() {
-    return {
-      starColor: utils.getLocalStorage('star-color', 'star-gold')
-    }
-  },
-  methods: {
-    changeStarColorHandler({target}) {
-      this.starColor = target.value
-      utils.setLocalStorage('star-color', target.value)
-    }
-  }
+import {reactive} from 'vue'
+
+const star = reactive({
+  color: utils.getLocalStorage('star-color', 'star-gold')
+})
+
+function changeStarColorHandler({target}) {
+  star.color = target.value;
+  utils.setLocalStorage('star-color', target.value)
 }
+
 </script>
+
+<template>
+  <div class="app">
+    <div class="wrapper">
+      <h1 class='title'>Star rating with API</h1>
+      <theme-selector @change-star-color="changeStarColorHandler"/>
+      <stars-list :color="star.color"></stars-list>
+    </div>
+  </div>
+</template>
 
 <style>
 
@@ -64,5 +60,6 @@ code {
   user-select: none;
   text-transform: uppercase;
 }
+
 
 </style>

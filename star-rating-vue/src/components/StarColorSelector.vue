@@ -1,25 +1,18 @@
-<script>
+<script setup>
 
 import utils from "@/utils";
+import {computed, defineEmits} from 'vue'
 
-export default {
-  name: "ThemeSelector",
-  components: {},
-  emits: ['change-star-color'],
-  data() {
-    return {}
-  },
-  methods: {
-    changeStarColorEmit(event) {
-      this.$emit('change-star-color', event)
-    },
-  },
-  computed: {
-    selected() {
-      return utils.getLocalStorage('star-color', 'star-gold')
-    }
-  }
+const emit = defineEmits(['change-star-color'])
+
+function changeStarColorEmit(event) {
+  emit('change-star-color', event)
 }
+
+const selected = computed(() => {
+  return utils.getLocalStorage('star-color', 'star-gold')
+})
+
 </script>
 
 <template>

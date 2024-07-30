@@ -1,28 +1,91 @@
-<script>
-import StarsItem from "@/components/stars/StarsItem.vue";
+<!-- TODO: Complete the mouse leave event -->
+<!-- TODO: Don't send request when change same stars -->
 
-export default {
-  name: "StarsList",
-  props: {
-    color: {
-      type: String,
-      required: true
-    },
-  },
-  components: {StarsItem},
-  methods: {}
+<script setup>
+import StarsItem from "@/components/stars/StarsItem.vue";
+import {defineProps, reactive, onMounted} from "vue";
+import api from '../../api/index'
+import PreLoader from "@/components/Preloader.vue";
+
+const props = defineProps({
+  color: {
+    type: String,
+    required: true
+  }
+})
+
+onMounted(() => {
+  loadStars()
+})
+
+let state = reactive({
+      stars: null,
+      isLoading: false,
+      error: false
+    }
+)
+
+async function loadStars() {
+  state.isLoading = true
+  try {
+    const response = await api.loadStars()
+    if (response.data) {
+      state.stars = response.data
+      state.initialStars = JSON.parse(JSON.stringify(response.data))
+    } else {
+      state.error = true
+    }
+  } catch (error) {
+    state.error = error.message
+  }
+  state.isLoading = false
 }
+
+function returnStarHandler() {
+  state.stars = JSON.parse(JSON.stringify(state.initialStars))
+}
+
+function changeHoverStarHandler(id) {
+  // Reset all selected property's
+  for (const index in state.stars) {
+    state.stars[index]['selected'] = false
+  }
+  // Set selected by mouseenter id
+  for (let i = 0; i <= id; i++) {
+    state.stars[i]['selected'] = true
+  }
+}
+
+function clickStarHandler() {
+  api.saveStars(state.stars)
+  loadStars()
+}
+
 </script>
 
 <template>
-  <div :class="color">
+  <div :class="props.color">
     <div class="stars-wrapper">
-      <div class="stars-outer">
-        <stars-item></stars-item>
+
+      <div v-if="state.isLoading">
+        <pre-loader :color="props.color"></pre-loader>
       </div>
-      <div class="not-changed-outer">
-        <div class="not-changed">Please select the new rating!</div>
+
+      <div class="error-is-shown-outer" v-else-if="state.error">
+        <div class="error">No stars found!</div>
       </div>
+
+      <div v-else class="stars-outer" @mouseleave="returnStarHandler">
+        <stars-item
+            v-for="star in state.stars"
+            :key="star.id"
+            :id="star.id"
+            :selected="star.selected"
+            @set-selected="changeHoverStarHandler"
+            @click-star="clickStarHandler"
+        ></stars-item>
+      </div>
+
     </div>
   </div>
 </template>
@@ -33,11 +96,12 @@ export default {
   justify-content: center;
   flex-flow: column;
   text-align: center;
+  height: 67px;
+  margin-top: 10px;
 }
 
 .stars-outer {
   display: flex;
-  height: 67px;
   gap: 5px;
   justify-content: center;
   align-items: center;
@@ -53,9 +117,9 @@ export default {
   font-size: 19px;
 }
 
-.not-changed-outer {
+.not-changed-outer,
+.error-is-shown-outer {
   position: relative;
-  min-height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;

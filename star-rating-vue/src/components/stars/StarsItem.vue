@@ -1,11 +1,36 @@
-<script>
-export default {
-  name: "StarsItem"
+<script setup>
+
+import {defineProps, computed, defineEmits} from 'vue'
+
+const props = defineProps({
+  selected: {
+    type: Boolean,
+    required: true
+  },
+  id: {
+    type: Number,
+    required: true
+  }
+})
+
+const emit = defineEmits(['set-selected', 'click-star'])
+
+function setSelectedStar() {
+  emit('set-selected', props.id)
 }
+
+function clickStar() {
+  emit('click-star')
+}
+
+const isSelected = computed(() => {
+  return (props.selected) ? 'star-selected' : 'star-not-selected'
+})
+
 </script>
 
 <template>
-  <div class="star star-selected">
+  <div @click="clickStar" @mouseenter="setSelectedStar" class="star star-initial" :class="isSelected">
     <span class="top-left-top-square-line"/>
     <span class="top-left-middle-square-line"/>
     <span class="top-right-top-square-line"/>
@@ -27,8 +52,7 @@ export default {
   cursor: pointer;
   width: 70px;
   height: 67px;
-  transform: scale(.8);
-  transition: transform .1s ease-in;
+  transform: scale(.7);
 }
 
 .star-gold,
@@ -51,14 +75,12 @@ export default {
 
 .star-not-selected {
   opacity: .3;
+  transition: opacity .2s ease-out;
 }
 
 .star-selected {
   opacity: 1;
-}
-
-.star:hover:not(:has(*:hover)) {
-  transform: scale(.9);
+  transition: opacity .2s ease-in;
 }
 
 .top-left-top-square-line,
@@ -75,6 +97,7 @@ export default {
   position: absolute;
   background: white;
   cursor: default;
+  pointer-events: none;
 }
 
 .top-left-top-square-line {
@@ -156,5 +179,4 @@ export default {
   top: 62px;
   transform: rotate(-62deg);
 }
-
 </style>
