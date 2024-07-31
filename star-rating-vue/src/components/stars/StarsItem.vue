@@ -55,10 +55,8 @@ const isSelected = computed(() => {
   transform: scale(.7);
 }
 
-.star-gold,
-.star-red,
-.star-green {
-  position: relative;
+.star:hover {
+  transform: scale(.8);
 }
 
 .star-gold .star {
@@ -73,14 +71,17 @@ const isSelected = computed(() => {
   background: green;
 }
 
+.star-selected,
+.star-not-selected {
+  transition: opacity .2s linear, transform .2s linear;
+}
+
 .star-not-selected {
   opacity: .3;
-  transition: opacity .2s ease-out;
 }
 
 .star-selected {
   opacity: 1;
-  transition: opacity .2s ease-in;
 }
 
 .top-left-top-square-line,
