@@ -1,9 +1,6 @@
-<!-- TODO: Complete the mouse leave event -->
-<!-- TODO: Don't send request when change same stars -->
-
 <script setup>
 import StarsItem from "@/components/stars/StarsItem.vue";
-import {defineProps, reactive, onMounted} from "vue";
+import {defineProps, reactive} from "vue";
 import api from '../../api/index'
 import PreLoader from "@/components/Preloader.vue";
 
@@ -14,16 +11,17 @@ const props = defineProps({
   }
 })
 
-onMounted(() => {
-  loadStars()
-})
-
 let state = reactive({
       stars: null,
       isLoading: false,
-      error: false
+      error: false,
+      initialStars: null,
+      currentStarsSelection: null
     }
 )
+
+// created lifecycle
+loadStars()
 
 async function loadStars() {
   state.isLoading = true
@@ -32,11 +30,12 @@ async function loadStars() {
     if (response.data) {
       state.stars = response.data
       state.initialStars = JSON.parse(JSON.stringify(response.data))
+      state.currentStarsSelection = JSON.parse(JSON.stringify(response.data))
     } else {
       state.error = true
     }
   } catch (error) {
-    state.error = error.message
+    console.log(error)
   }
   state.isLoading = false
 }
@@ -46,19 +45,19 @@ function returnStarHandler() {
 }
 
 function changeHoverStarHandler(id) {
-  // Reset all selected property's
-  for (const index in state.stars) {
-    state.stars[index]['selected'] = false
-  }
-  // Set selected by mouseenter id
-  for (let i = 0; i <= id; i++) {
-    state.stars[i]['selected'] = true
-  }
+  state.stars.forEach((star, index) => {
+    star.selected = index <= id
+  });
 }
 
-function clickStarHandler() {
-  api.saveStars(state.stars)
-  loadStars()
+async function clickStarHandler() {
+  const hasChanged = JSON.stringify(state.stars) !== JSON.stringify(state.currentStarsSelection)
+
+  if (hasChanged) {
+    state.currentStarsSelection = JSON.parse(JSON.stringify(state.stars))
+    await api.saveStars(state.stars)
+    await loadStars()
+  }
 }
 
 </script>
@@ -74,7 +73,6 @@ function clickStarHandler() {
       <div class="error-is-shown-outer" v-else-if="state.error">
         <div class="error">No stars found!</div>
       </div>
-
       <div v-else class="stars-outer" @mouseleave="returnStarHandler">
         <stars-item
             v-for="star in state.stars"
@@ -85,7 +83,6 @@ function clickStarHandler() {
             @click-star="clickStarHandler"
         ></stars-item>
       </div>
-
     </div>
   </div>
 </template>
@@ -111,27 +108,17 @@ function clickStarHandler() {
   animation: appear .3s linear forwards;
 }
 
-.error,
-.no-found {
+.error {
   margin: 0;
   font-size: 19px;
 }
 
-.not-changed-outer,
 .error-is-shown-outer {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-}
-
-.not-changed {
-  margin: 0;
-  font-size: 16px;
-  opacity: 0;
-  position: absolute;
-  animation: appear .2s linear forwards;
 }
 
 .error {

@@ -40,11 +40,6 @@ const props = defineProps({
   animation: spin 2s linear infinite;
 }
 
-.theme-gold,
-.theme-red {
-  position: relative;
-}
-
 .star-gold .preloader {
   background: #febf00;
 }
