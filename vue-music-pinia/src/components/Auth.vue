@@ -46,12 +46,13 @@ const changeTabHandler = (name) => {
         <!-- Add margin if you want to see some of the overlay behind the modal-->
         <div class="py-4 text-left px-6">
           <!--Title-->
-          <div class="flex justify-between items-center pb-4">
-            <p class="text-2xl font-bold">Your Account</p>
+
+          <div class="flex items-center justify-center pb-5">
             <!-- Modal Close Button -->
-            <div @click.prevent="modalCloseHandler" class="modal-close cursor-pointer z-50">
+            <p class="text-2xl font-bold">Your Account</p>
+            <span @click.prevent="modalCloseHandler" class="modal-close cursor-pointer z-50 ml-auto absolute right-5 top-2.5">
               <i class="fas fa-times"></i>
-            </div>
+            </span>
           </div>
 
           <!-- Tabs -->

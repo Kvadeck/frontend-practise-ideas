@@ -616,6 +616,14 @@ video {
   left: 0px;
 }
 
+.right-5 {
+  right: 1.25rem;
+}
+
+.top-2\.5 {
+  top: 0.625rem;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -663,6 +671,10 @@ video {
 
 .mb-8 {
   margin-bottom: 2rem;
+}
+
+.ml-auto {
+  margin-left: auto;
 }
 
 .mr-4 {
