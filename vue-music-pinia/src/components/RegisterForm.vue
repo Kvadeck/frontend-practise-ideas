@@ -1,5 +1,6 @@
 <script setup>
 import {reactive} from "vue";
+import {useUserStore} from "@/stores/user"
 
 let state = reactive({
       reg_show_alert: false,
@@ -10,6 +11,8 @@ let state = reactive({
       },
     }
 )
+
+const store = useUserStore()
 
 const schema = {
   name: "required|min:3|max:100|alpha_spaces",
@@ -22,16 +25,25 @@ const schema = {
 }
 
 
-function register(values) {
+async function register(values) {
 
   state.reg_show_alert = true;
   state.reg_in_submission = true;
   state.reg_alert_variant = "bg-blue-500";
   state.reg_alert_msg = "Please wait! Your account is being created.";
 
+  try {
+    await store.register(values)
+  } catch (e) {
+    state.reg_in_submission = false;
+    state.reg_alert_variant = "bg-red-500";
+    state.reg_alert_msg = "An expected error! Please try again later.";
+    return;
+  }
+
   state.reg_alert_variant = "bg-green-500";
   state.reg_alert_msg = "Success! Your account has been created.";
-  console.log(values);
+
 }
 
 
