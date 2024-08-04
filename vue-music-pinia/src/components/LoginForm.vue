@@ -1,6 +1,9 @@
 <script setup>
 
 import {reactive} from "vue";
+import {useUserStore} from "@/stores/user";
+
+const store = useUserStore()
 
 let state = reactive({
       login_in_submission: false,
@@ -15,15 +18,25 @@ const schema = {
   password: "required|min:6|max:100",
 }
 
-function login(values) {
-    state.login_show_alert = true;
-    state.login_in_submission = true;
-    state.login_alert_variant = "bg-blue-500";
-    state.login_alert_msg = "Please wait! We are logging you in.";
+async function login(values) {
+  state.login_show_alert = true;
+  state.login_in_submission = true;
+  state.login_alert_variant = "bg-blue-500";
+  state.login_alert_msg = "Please wait! We are logging you in.";
 
-    state.login_alert_variant = "bg-green-500";
-    state.login_alert_msg = "Success! You are now logged in.";
-    console.log(values);
+  try {
+    await store.authenticate(values)
+  } catch (e) {
+    state.login_in_submission = false;
+    state.login_alert_variant = "bg-red-500";
+    state.login_alert_msg = "Invalid login details!";
+    return;
+  }
+
+  state.login_alert_variant = "bg-green-500";
+  state.login_alert_msg = "Success! You are now logged in.";
+  window.location.reload()
+  console.log(values);
 }
 
 </script>

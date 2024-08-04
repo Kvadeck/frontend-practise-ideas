@@ -43,6 +43,7 @@ async function register(values) {
 
   state.reg_alert_variant = "bg-green-500";
   state.reg_alert_msg = "Success! Your account has been created.";
+  window.location.reload()
 
 }
 

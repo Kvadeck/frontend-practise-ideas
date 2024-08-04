@@ -272,15 +272,25 @@
 </template>
 
 <script>
-
-
-import Header from "@/components/Header.vue";
 import Auth from "@/components/Auth.vue";
+import Header from "@/components/Header.vue";
 
 export default {
   name: 'App',
   components: {Auth, Header}
 }
+</script>
+
+<script setup>
+import {useUserStore} from "@/stores/user";
+import {auth} from '@/includes/firebase';
+
+const store = useUserStore()
+
+if (auth.currentUser) {
+  store.userLoggedIn = true
+}
+
 </script>
 
 <style>
