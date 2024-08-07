@@ -1,8 +1,15 @@
 <script setup>
-import {onMounted, ref, defineEmits} from "vue";
+import {ref, defineExpose, defineProps} from "vue";
 import {storage, auth, songsCollection} from "@/includes/firebase";
 
-const emit = defineEmits(['send-uploads-to-parent'])
+const props = defineProps({
+  addSong: {
+    type: Function,
+    required: true
+  }
+})
+
+
 const isDragover = ref(false)
 const uploads = ref([])
 
@@ -47,7 +54,10 @@ function upload($event) {
       }
 
       song.url = await task.snapshot.ref.getDownloadURL();
-      await songsCollection.add(song)
+      const songRef = await songsCollection.add(song)
+      const songSnapshot = await songRef.get()
+
+      props.addSong(songSnapshot)
 
       uploads.value[uploadIndex].variant = 'bg-green-400';
       uploads.value[uploadIndex].icon = 'fas fa-check';
@@ -57,20 +67,13 @@ function upload($event) {
   })
 }
 
-// function cancelUpload() {
-//   console.log('cancelUpload')
-//   // uploads.forEach((upload) => {
-//   //     upload.task.cancel()
-//   // })
-// }
+function cancelUpload() {
+  uploads.value.forEach((upload) => {
+    upload.task.cancel()
+  })
+}
 
-// function sendUploadsToParent() {
-//   emit('send-uploads-to-parent', uploads)
-// }
-
-onMounted(() => {
-  // sendUploadsToParent()
-})
+defineExpose({cancelUpload});
 
 </script>
 
