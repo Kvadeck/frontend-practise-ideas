@@ -1,4 +1,4 @@
-#### Developing different things for frontend practice ####
+#### Developing different things for frontend ####
 
 ![alt text](readme.png "Girl")
 
