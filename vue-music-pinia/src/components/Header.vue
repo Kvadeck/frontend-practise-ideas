@@ -25,16 +25,16 @@ function signOut() {
 
 <template>
   <!-- Header -->
-  <header id="header" class="bg-cyan-700">
-    <nav class="container mx-auto flex justify-between items-center py-5 px-4">
+  <header id="header" class="bg-indigo-600">
+    <nav class="container mx-auto flex justify-between items-center py-4 px-4">
       <!-- App Name -->
-      <router-link class="text-white font-bold uppercase text-2xl mr-4" href="#"
+      <router-link class="text-white font-bold uppercase text-2xl mr-4 px-3 border" href="#"
                    :to="{name: 'home'}" exact-active-class="no-active">Beat
       </router-link>
 
       <div class="flex items-center">
         <!-- Primary Navigation -->
-        <ul class="flex flex-row mt-1">
+        <ul class="flex flex-row border py-1 text-lg">
           <!-- Navigation Links -->
           <li v-if="!userStore.userLoggedIn">
             <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal">Login / Register</a>
