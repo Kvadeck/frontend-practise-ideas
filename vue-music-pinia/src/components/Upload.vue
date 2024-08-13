@@ -1,5 +1,5 @@
 <script setup>
-import {ref, defineExpose, defineProps} from "vue";
+import {ref, defineProps} from "vue";
 import {storage, auth, songsCollection} from "@/includes/firebase";
 
 const props = defineProps({
@@ -82,7 +82,7 @@ defineExpose({cancelUpload});
       class="bg-white rounded border border-gray-200 relative flex flex-col"
   >
     <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
-      <span class="card-title">Upload</span>
+      <span class="card-title">Upload:</span>
       <i class="fas fa-upload float-right text-green-400 text-2xl"></i>
     </div>
     <div class="p-6">

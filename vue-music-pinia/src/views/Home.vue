@@ -75,8 +75,10 @@ getSongs()
     ></div>
     <div class="container mx-auto">
       <div class="text-white main-header-content">
-        <h1 class="font-bold text-5xl mb-5 bg-black bg-opacity-60 inline-block p-3">Feel the Beat, Live the Music!</h1>
-        <p class="w-full md:w-8/12 mx-auto text-xl">
+        <div class="w-fit inline-block bg-black bg-opacity-20 mb-5">
+          <h1 class="animated-title font-bold text-4xl md:text-6xl p-3 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Feel the Beat, Live the Music!</h1>
+        </div>
+        <p class="lg:w-6/12 mx-auto text-lg md:text-xl">
           "Feel the Beat" encapsulates the essence of our music service, where every note and rhythm connects you to the
           heart of the music.
         </p>
@@ -89,7 +91,7 @@ getSongs()
   </section>
 
   <!-- Main Content -->
-  <section class="container mx-auto">
+  <section class="container mx-auto mb-24">
     <div
         class="bg-white rounded border border-gray-200 relative flex flex-col"
     >

@@ -37,10 +37,10 @@ function signOut() {
         <ul class="flex flex-row border py-1 text-lg">
           <!-- Navigation Links -->
           <li v-if="!userStore.userLoggedIn">
-            <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal">Login / Register</a>
+            <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal">Login | Register</a>
           </li>
           <template v-else>
-            <li>
+            <li class="border-r">
               <router-link :to="{name: 'manage'}" class="px-2 text-white" href="#">Manage</router-link>
             </li>
             <li>
